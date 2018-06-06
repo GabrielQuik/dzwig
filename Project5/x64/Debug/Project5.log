@@ -1,0 +1,3 @@
+﻿  MyForm.cpp
+c:\users\cegla\source\repos\projekt4\project5\myform.h(107): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Project5.vcxproj -> C:\Users\cegla\source\repos\Projekt4\x64\Debug\Project5.exe
