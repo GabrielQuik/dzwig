@@ -269,7 +269,7 @@ namespace Project5 {
 	private: System::Void simulator_Click(System::Object^  sender, System::EventArgs^  e) {
 		for (whichStep;whichStep<3;whichStep++)
 		{
-			for (x; x < 500+(3*whichStep);)
+			for (x; x < 500+(30*whichStep);)
 			{
 				this->pictureBox2->Location = System::Drawing::Point(x++, y);
 				this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
@@ -285,7 +285,7 @@ namespace Project5 {
 				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX, triangleY--);
 				this->hookTile->Size = System::Drawing::Size(2, hookSize--);
 			}
-			for (x; 335-(30*whichStep-50) < x;)
+			for (x; 335 < x;)
 			{
 				this->pictureBox2->Location = System::Drawing::Point(x--, y);
 				this->hookTile->Location = System::Drawing::Point(hookX--, hookY);
