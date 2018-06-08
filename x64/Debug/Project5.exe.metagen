@@ -1,6 +1,6 @@
   Project5.MyForm.resources - Embedded, ContainedInManifestFile, 
 ImageRuntimeVersion: v4.0.30319
-Assembly Project5, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+Assembly Project5, Version=0.0.*, Culture=Język niezmienny (kraj niezmienny): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -24,6 +24,15 @@ Class Project5.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Int32 y : Public
     Int32 hookX : Public
     Int32 hookY : Public
+    Int32 squareX : Public
+    Int32 squareY : Public
+    Int32 circleX : Public
+    Int32 circleY : Public
+    Int32 triangleX : Public
+    Int32 triangleY : Public
+    Int32 Hight : Public
     Int32 hookControler : Public
+    Int32 hookSize : Public
+    Int32 whichStep : Public
   Methods:
     MyForm_Load(Object, EventArgs): PrivateScope, Public, HideBySig

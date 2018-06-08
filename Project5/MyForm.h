@@ -111,11 +111,12 @@ namespace Project5 {
 			// pictureBox2
 			// 
 			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
-			this->pictureBox2->Location = System::Drawing::Point(500, 110);
+			this->pictureBox2->Location = System::Drawing::Point(335, 110);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(36, 18);
 			this->pictureBox2->TabIndex = 4;
 			this->pictureBox2->TabStop = false;
+			this->pictureBox2->Click += gcnew System::EventHandler(this, &MyForm::pictureBox2_Click);
 			// 
 			// button3
 			// 
@@ -160,11 +161,12 @@ namespace Project5 {
 			// hookTile
 			// 
 			this->hookTile->BackColor = System::Drawing::Color::Maroon;
-			this->hookTile->Location = System::Drawing::Point(517, 128);
+			this->hookTile->Location = System::Drawing::Point(353, 125);
 			this->hookTile->Name = L"hookTile";
 			this->hookTile->Size = System::Drawing::Size(2, 30);
 			this->hookTile->TabIndex = 10;
 			this->hookTile->TabStop = false;
+			this->hookTile->Click += gcnew System::EventHandler(this, &MyForm::hookTile_Click);
 			// 
 			// hookUp
 			// 
@@ -194,6 +196,7 @@ namespace Project5 {
 			this->simulator->TabIndex = 13;
 			this->simulator->Text = L"simulate";
 			this->simulator->UseVisualStyleBackColor = true;
+			this->simulator->Click += gcnew System::EventHandler(this, &MyForm::simulator_Click);
 			// 
 			// MyForm
 			// 
@@ -226,34 +229,86 @@ namespace Project5 {
 
 		}
 #pragma endregion
-public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-}
-	int x = 500, y = 110, hookX = x + 17, hookY = y + 18;
-	int hookControler = 1;
+	public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+	}
+			int x = 335, y = 110, hookX = x + 18, hookY = y + 18;
+			int squareX = 500, squareY = 405, circleX = 530, circleY = 405, triangleX = 560, triangleY = 405, Hight = 30;
+			int hookControler = 1;
+			int hookSize = 30;
+			int whichStep = 0;
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		for (int i = 0; i < 30; i++) {
-			//Sleep(5);
-			this->pictureBox2->Location = System::Drawing::Point(x++,y);
-			this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
+		if (x < 600)
+		{
+			for (int i = 0; i < 30; i++) {
+			
+				this->pictureBox2->Location = System::Drawing::Point(x++, y);
+				this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
+			}
 		}
 	}
-	
-private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-	for (int i = 0; i < 30; i++) {
 
-		//Sleep(5);
-		this->pictureBox2->Location = System::Drawing::Point(x--, y);
-		this->hookTile->Location = System::Drawing::Point(hookX--, hookY);
+	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (x > 350)
+		{
+			for (int i = 0; i < 30; i++) {
+				
+				this->pictureBox2->Location = System::Drawing::Point(x--, y);
+				this->hookTile->Location = System::Drawing::Point(hookX--, hookY);
+			}
+		}
 	}
-}
-private: System::Void hookUp_Click(System::Object^  sender, System::EventArgs^  e) {
-	hookControler--;
-	this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
-}
-private: System::Void hookDown_Click(System::Object^  sender, System::EventArgs^  e) {
-	
-	hookControler++;
-	this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
-}
+	private: System::Void hookUp_Click(System::Object^  sender, System::EventArgs^  e) {
+		hookControler--;
+		this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
+	}
+	private: System::Void hookDown_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		hookControler++;
+		this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
+	}
+	private: System::Void simulator_Click(System::Object^  sender, System::EventArgs^  e) {
+		for (whichStep;whichStep<3;whichStep++)
+		{
+			for (x; x < 500+(30*whichStep);)
+			{
+				this->pictureBox2->Location = System::Drawing::Point(x++, y);
+				this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
+			}
+			for (hookSize; hookSize<405-hookY; )
+			{
+				this->hookTile->Size = System::Drawing::Size(2, hookSize++);
+			}
+			for (hookSize; hookSize >30;)
+			{
+				if(whichStep==0) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY--);
+				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY--);
+				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX, triangleY--);
+				this->hookTile->Size = System::Drawing::Size(2, hookSize--);
+			}
+			for (x; 335 < x;)
+			{
+				this->pictureBox2->Location = System::Drawing::Point(x--, y);
+				this->hookTile->Location = System::Drawing::Point(hookX--, hookY);
+				if (whichStep == 0) this->pictureBox3->Location = System::Drawing::Point(squareX--, squareY);
+				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX--, circleY);
+				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX--, triangleY);
+			}
+			for (hookSize; hookSize<405-(30*whichStep) - hookY;)
+			{
+				if (whichStep == 0) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY++);
+				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY++);
+				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX, triangleY++);
+				this->hookTile->Size = System::Drawing::Size(2, hookSize++);
+			}
+		}
+		for (hookSize; hookSize >30; )
+		{
+			this->hookTile->Size = System::Drawing::Size(2, hookSize--);
+		}
+	};
+	private: System::Void hookTile_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void pictureBox2_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
 };
 };
