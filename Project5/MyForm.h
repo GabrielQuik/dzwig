@@ -194,6 +194,7 @@ namespace Project5 {
 			this->simulator->TabIndex = 13;
 			this->simulator->Text = L"simulate";
 			this->simulator->UseVisualStyleBackColor = true;
+			this->simulator->Click += gcnew System::EventHandler(this, &MyForm::simulator_Click);
 			// 
 			// MyForm
 			// 
