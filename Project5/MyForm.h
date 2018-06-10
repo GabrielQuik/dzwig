@@ -131,7 +131,7 @@ namespace Project5 {
 			// pictureBox3
 			// 
 			this->pictureBox3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.Image")));
-			this->pictureBox3->Location = System::Drawing::Point(500, 405);
+			this->pictureBox3->Location = System::Drawing::Point(530, 405);
 			this->pictureBox3->Name = L"pictureBox3";
 			this->pictureBox3->Size = System::Drawing::Size(30, 30);
 			this->pictureBox3->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -141,7 +141,7 @@ namespace Project5 {
 			// pictureBox4
 			// 
 			this->pictureBox4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.Image")));
-			this->pictureBox4->Location = System::Drawing::Point(530, 405);
+			this->pictureBox4->Location = System::Drawing::Point(500, 405);
 			this->pictureBox4->Name = L"pictureBox4";
 			this->pictureBox4->Size = System::Drawing::Size(30, 30);
 			this->pictureBox4->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -232,15 +232,63 @@ namespace Project5 {
 	public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
 			int x = 335, y = 110, hookX = x + 18, hookY = y + 18;
-			int squareX = 500, squareY = 405, circleX = 530, circleY = 405, triangleX = 560, triangleY = 405, Hight = 30;
+			int squareX = 530, squareY = 405, circleX = 500, circleY = 405, triangleX = 560, triangleY = 405, Hight = 30;
 			int hookControler = 1;
 			int hookSize = 30;
 			int whichStep = 0;
+			/*
+			void hookRight(int x, int y, int hookY, int hookX, int whichStep)
+		{
+			for (x; x < 500 + (30 * whichStep);)
+			{
+				this->pictureBox2->Location = System::Drawing::Point(x++, y);
+				this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
+			}
+		}
+			void hookdown(int x, int y, int hookY, int hookX, int hookSize)
+		{
+			for (hookSize; hookSize < 405 - hookY; )
+			{
+				this->hookTile->Size = System::Drawing::Size(2, hookSize++);
+			}
+		}
+			void hookAndPictureBoxUp(int squareX, int squareY, int circleX, int circleY, int triangleX, int triangleY, int hookSize, int whichStep)
+		{
+			for (hookSize; hookSize > 30;)
+			{
+				if (whichStep == 0) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY--);
+				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY--);
+				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX, triangleY--);
+				this->hookTile->Size = System::Drawing::Size(2, hookSize--);
+			}
+		}
+			void hookAndPictureBoxRight(int x, int y, int hookX, int hookY,int squareX, int squareY, int circleX, int circleY, int triangleX, int triangleY, int whichStep)
+		{
+			for (x; 335 < x;)
+			{
+				this->pictureBox2->Location = System::Drawing::Point(x--, y);
+				this->hookTile->Location = System::Drawing::Point(hookX--, hookY);
+				if (whichStep == 0) this->pictureBox3->Location = System::Drawing::Point(squareX--, squareY);
+				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX--, circleY);
+				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX--, triangleY);
+			}
+		}
+			void hookAndPictureBoxDown(int hookY, int hookSize, int squareX, int squareY, int circleX, int circleY, int triangleX, int triangleY, int whichStep)
+		{
+			for (hookSize; hookSize < 405 - (30 * whichStep) - hookY;)
+			{
+				if (whichStep == 0) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY++);
+				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY++);
+				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX, triangleY++);
+				this->hookTile->Size = System::Drawing::Size(2, hookSize++);
+			}
+		}
+			*/ //z jakiegos powodu nie dzialalaja
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		if (x < 600)
 		{
 			for (int i = 0; i < 30; i++) {
-			
+
 				this->pictureBox2->Location = System::Drawing::Point(x++, y);
 				this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
 			}
@@ -251,60 +299,92 @@ namespace Project5 {
 		if (x > 350)
 		{
 			for (int i = 0; i < 30; i++) {
-				
+
 				this->pictureBox2->Location = System::Drawing::Point(x--, y);
 				this->hookTile->Location = System::Drawing::Point(hookX--, hookY);
 			}
 		}
 	}
 	private: System::Void hookUp_Click(System::Object^  sender, System::EventArgs^  e) {
-		hookControler--;
-		this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
+		if (hookControler > 1)
+		{
+			hookControler--;
+			this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
+		}
+		
 	}
 	private: System::Void hookDown_Click(System::Object^  sender, System::EventArgs^  e) {
-
-		hookControler++;
-		this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
-	}
-	private: System::Void simulator_Click(System::Object^  sender, System::EventArgs^  e) {
-		for (whichStep;whichStep<3;whichStep++)
+		if (30 * hookControler < 300)
 		{
-			for (x; x < 500+(30*whichStep);)
+			hookControler++;
+			this->hookTile->Size = System::Drawing::Size(2, 30 * hookControler);
+		}
+	}
+	private: System::Void simulator_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		for (whichStep;whichStep < 3;whichStep++)
+		{
+			if (x < 500)
 			{
-				this->pictureBox2->Location = System::Drawing::Point(x++, y);
-				this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
+				for (x; x < 500 + (30 * whichStep);)
+				{
+					//Sleep(1);
+					this->pictureBox2->Location = System::Drawing::Point(x++, y);
+					this->hookTile->Location = System::Drawing::Point(hookX++, hookY);
+					this->Refresh();
+				}
 			}
-			for (hookSize; hookSize<405-hookY; )
+			else
 			{
+				for (x; x > 500;)
+				{
+					//Sleep(1);
+					this->pictureBox2->Location = System::Drawing::Point(x--, y);
+					this->hookTile->Location = System::Drawing::Point(hookX, hookY);
+					this->Refresh();
+				}
+			}
+			for (hookSize; hookSize < 405 - hookY; )
+			{
+				//Sleep(1);
 				this->hookTile->Size = System::Drawing::Size(2, hookSize++);
+				this->Refresh();
 			}
-			for (hookSize; hookSize >30;)
+			for (hookSize; hookSize > 30;)
 			{
-				if(whichStep==0) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY--);
-				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY--);
+				//Sleep(1);
+				if (whichStep == 1) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY--);
+				else if (whichStep == 0) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY--);
 				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX, triangleY--);
 				this->hookTile->Size = System::Drawing::Size(2, hookSize--);
+				this->Refresh();
 			}
 			for (x; 335 < x;)
 			{
+				//Sleep(1);
 				this->pictureBox2->Location = System::Drawing::Point(x--, y);
 				this->hookTile->Location = System::Drawing::Point(hookX--, hookY);
-				if (whichStep == 0) this->pictureBox3->Location = System::Drawing::Point(squareX--, squareY);
-				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX--, circleY);
+				if (whichStep == 1) this->pictureBox3->Location = System::Drawing::Point(squareX--, squareY);
+				else if (whichStep == 0) this->pictureBox4->Location = System::Drawing::Point(circleX--, circleY);
 				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX--, triangleY);
+				this->Refresh();
 			}
-			for (hookSize; hookSize<405-(30*whichStep) - hookY;)
+			for (hookSize; hookSize < 405 - (30 * whichStep) - hookY;)
 			{
-				if (whichStep == 0) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY++);
-				else if (whichStep == 1) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY++);
+				//Sleep(1);
+				if (whichStep == 1) this->pictureBox3->Location = System::Drawing::Point(squareX, squareY++);
+				else if (whichStep == 0) this->pictureBox4->Location = System::Drawing::Point(circleX, circleY++);
 				else if (whichStep == 2) this->pictureBox5->Location = System::Drawing::Point(triangleX, triangleY++);
 				this->hookTile->Size = System::Drawing::Size(2, hookSize++);
+				this->Refresh();
+			}
+			for (hookSize; hookSize > 30; )
+			{
+				this->hookTile->Size = System::Drawing::Size(2, hookSize--);
+				this->Refresh();
 			}
 		}
-		for (hookSize; hookSize >30; )
-		{
-			this->hookTile->Size = System::Drawing::Size(2, hookSize--);
-		}
+	
 	};
 	private: System::Void hookTile_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
